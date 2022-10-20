@@ -3,8 +3,7 @@ import MyContext from '../context/myContext';
 
 export default function Table() {
   const contexto = useContext(MyContext);
-  const { data } = contexto;
-  console.log(data);
+  const { data, nameFilter } = contexto;
   return (
     <table>
       <thead>
@@ -25,7 +24,7 @@ export default function Table() {
         </tr>
       </thead>
       <tbody>
-        {data.map((e) => (
+        {data?.filter((el) => el.name.toUpperCase().includes(nameFilter.toUpperCase())).map((e) => (
           <tr key={ e.url }>
             <td>{e.name}</td>
             <td>{e.rotation_period}</td>
