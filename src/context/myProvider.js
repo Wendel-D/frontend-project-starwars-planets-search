@@ -5,10 +5,14 @@ import MyContext from './myContext';
 function Provider({ children }) {
   const [data, setData] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
+  const [column, setColumn] = useState('population');
+  const [comparisonFilter, setComparisonFilter] = useState('maior que');
+  const [value, setValue] = useState(0);
 
-  const handleNameFilter = ({ target }) => {
-    setNameFilter(target.value);
-  };
+  const handleNameFilter = ({ target }) => { setNameFilter(target.value); };
+  const handleColumn = ({ target }) => { setColumn(target.value); };
+  const handleComparisonFilter = ({ target }) => { setComparisonFilter(target.value); };
+  const handleValue = ({ target }) => { setValue(target.value); };
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -25,11 +29,33 @@ function Provider({ children }) {
     fetchAPI();
   }, []);
 
+  const filterValue = () => {
+    if (comparisonFilter.includes('maior que')) {
+      const dataFilter = data.filter((e) => Number(e[column]) > Number(value));
+      setData(dataFilter);
+    }
+    if (comparisonFilter.includes('menor que')) {
+      const dataFilter = data.filter((e) => Number(e[column]) < Number(value));
+      setData(dataFilter);
+    }
+    if (comparisonFilter.includes('igual a')) {
+      const dataFilter = data.filter((e) => Number(e[column]) === Number(value));
+      setData(dataFilter);
+    }
+  };
+
   const contexto = useMemo(
     () => ({
       data,
       nameFilter,
+      column,
+      comparisonFilter,
+      value,
       handleNameFilter,
+      handleColumn,
+      handleComparisonFilter,
+      handleValue,
+      filterValue,
     }),
   );
 
