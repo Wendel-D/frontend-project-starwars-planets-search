@@ -7,7 +7,7 @@ function Provider({ children }) {
   const [nameFilter, setNameFilter] = useState('');
 
   const handleNameFilter = ({ target }) => {
-    setNameFilter(target.value)
+    setNameFilter(target.value);
   };
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function Provider({ children }) {
   );
 
   return (
-    <MyContext.Provider value={contexto}>
+    <MyContext.Provider value={ contexto }>
       {children}
     </MyContext.Provider>
   );
