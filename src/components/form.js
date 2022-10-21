@@ -26,9 +26,11 @@ export default function Form() {
           placeholder="Search Name"
         />
       </label>
-      <label htmlFor="column-filter">
+      <label htmlFor="genero">
+        Coluna:
         <select
-          name="column-filter"
+          name="genero"
+          id="genero"
           data-testid="column-filter"
           value={ column }
           onChange={ handleColumn }
@@ -40,9 +42,11 @@ export default function Form() {
           <option value="surface_water">surface_water</option>
         </select>
       </label>
-      <label htmlFor="comparison-filter">
+      <label htmlFor="operator">
+        Comparador:
         <select
-          name="comparison-filter"
+          name="operator"
+          id="operator"
           data-testid="comparison-filter"
           value={ comparisonFilter }
           onChange={ handleComparisonFilter }
