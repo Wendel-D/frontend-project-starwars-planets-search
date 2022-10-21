@@ -8,11 +8,13 @@ export default function Form() {
     column,
     comparisonFilter,
     value,
+    filterByNumericValues,
     handleNameFilter,
     handleColumn,
     handleComparisonFilter,
     handleValue,
-    filterValue,
+    arrayColumn,
+    handleClick,
   } = contexto;
   return (
     <form>
@@ -35,12 +37,25 @@ export default function Form() {
           value={ column }
           onChange={ handleColumn }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {
+            arrayColumn.map(
+              (e, index) => (
+                <option
+                  key={ index }
+                  value={ e }
+                >
+                  {e}
+                </option>),
+            )
+          }
         </select>
+        {filterByNumericValues?.map((e, index) => (
+          <div key={ index }>
+            <span>{e.column}</span>
+            <span>{e.column}</span>
+            <span>{e.column}</span>
+          </div>
+        ))}
       </label>
       <label htmlFor="operator">
         Comparador:
@@ -68,7 +83,11 @@ export default function Form() {
       <button
         type="button"
         data-testid="button-filter"
-        onClick={ filterValue }
+        onClick={ () => handleClick({
+          column,
+          comparisonFilter,
+          value,
+        }) }
       >
         filtrar
       </button>
