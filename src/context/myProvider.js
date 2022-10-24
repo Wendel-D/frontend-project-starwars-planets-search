@@ -8,12 +8,13 @@ const arrayColumnInitial = [
 function Provider({ children }) {
   const [data, setData] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
-  const [column, setColumn] = useState('population');
+  const [column, setColumn] = useState(arrayColumnInitial[0]);
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [value, setValue] = useState(0);
   const [filterByNumericValues, setfilterByNumericValues] = useState([]);
   const [arrayColumn, setArrayColumn] = useState(arrayColumnInitial);
   const [isAtt, setIsAtt] = useState(false);
+  // const [apiSaved, setApiSaved] = useState([]);
 
   const handleNameFilter = ({ target }) => { setNameFilter(target.value); };
   const handleColumn = ({ target }) => { setColumn(target.value); };
@@ -28,6 +29,7 @@ function Provider({ children }) {
         const { results } = await request.json();
         const filterResults = results.filter((e) => delete e.residents);
         setData(filterResults);
+        setApiSaved(filterResults);
       } catch (e) {
         throw new Error(e);
       }
@@ -37,7 +39,9 @@ function Provider({ children }) {
 
   const columnFilter = () => {
     const string = filterByNumericValues.map((e) => (e.column));
-    setArrayColumn(arrayColumn.filter((e) => !string.includes(e) && e));
+    const filterOK = arrayColumn.filter((e) => !string.includes(e) && e);
+    setArrayColumn(filterOK);
+    setColumn(filterOK[0]);
     setIsAtt(false);
   };
 
@@ -82,6 +86,7 @@ function Provider({ children }) {
       handleComparisonFilter,
       handleValue,
       handleClick,
+      // removeFilter,
     }),
   );
 

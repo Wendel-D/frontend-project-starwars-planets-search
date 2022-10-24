@@ -15,7 +15,9 @@ export default function Form() {
     handleValue,
     arrayColumn,
     handleClick,
+    removeFilter,
   } = contexto;
+  console.log(filterByNumericValues);
   return (
     <form>
       <label htmlFor="name-filter">
@@ -49,13 +51,6 @@ export default function Form() {
             )
           }
         </select>
-        {filterByNumericValues?.map((e, index) => (
-          <div key={ index }>
-            <span>{e.column}</span>
-            <span>{e.column}</span>
-            <span>{e.column}</span>
-          </div>
-        ))}
       </label>
       <label htmlFor="operator">
         Comparador:
@@ -102,6 +97,22 @@ export default function Form() {
       </label>
       <button type="button">ordenar</button>
       <button type="button">remover filtros</button>
+      {
+        filterByNumericValues?.map((e, index) => (
+          <div key={ index } data-testid="filter">
+            <p>
+              {`${e.column} ${e.comparisonFilter} ${e.value}`}
+            </p>
+            <button
+              type="button"
+              onClick={ () => removeFilter(e) }
+            >
+              Excluir
+
+            </button>
+          </div>
+        ))
+      }
     </form>
   );
 }
