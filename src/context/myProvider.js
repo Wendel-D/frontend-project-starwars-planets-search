@@ -29,7 +29,7 @@ function Provider({ children }) {
         const { results } = await request.json();
         const filterResults = results.filter((e) => delete e.residents);
         setData(filterResults);
-        setApiSaved(filterResults);
+        // setApiSaved(filterResults);
       } catch (e) {
         throw new Error(e);
       }
